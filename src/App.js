@@ -9,7 +9,25 @@ import Server from './server.js';
 
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {movies: []}
+    this.getServerData = this.getServerData.bind(this);
+    // this.sendServerData = this.sendServerData.bind(this);
+  }
+
+
+getServerData = (childData) => {
+  console.log('childData', childData);
+  this.setState({movies: childData});
+  
+}
+
+
+
   render(){
+    console.log('App got data ', this.state.movies);
+    
     return (
       <div className="App">
         <Router>
@@ -17,10 +35,14 @@ class App extends React.Component {
             <h1>The best movies</h1>
           <Nav />
           </header>
-          <Route exact path='/' component={Main} />
+          <Route path='/main' component={Main}/>
           <Route path='/add-movie' component={AddMovie} />
         </Router>
-        <Server />
+        
+        
+        <Server getServerData= {this.getServerData}/>
+        <Main movies={this.state.movies} />
+        
         
       </div>
     );

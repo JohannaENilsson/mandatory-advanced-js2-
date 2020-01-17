@@ -1,5 +1,5 @@
 import React from "react";
-import { Link} from "react-router-dom";
+import { Link, withRouter} from "react-router-dom";
 
 class Nav extends React.Component {
   render() {
@@ -13,3 +13,4 @@ class Nav extends React.Component {
 }
 
 export default Nav;
+// export default withRouter(Nav);
