@@ -16,8 +16,9 @@ class About extends React.Component {
       .get("http://3.120.96.16:3001/movies/" + id)
       .then(res => {
         let data = res.data;
-        if (data.length === 1) {
-          this.setState({ movie: data[0] });
+
+        if (data) {
+          this.setState({ movie: data });
         }
       })
       .catch(err => {
@@ -34,7 +35,11 @@ class About extends React.Component {
   }
 
   render() {
+    console.log("filmen ", this.state.movie);
+
+    let movie = this.state.movie;
     let redirect;
+    let renderMovie;
 
     if (this.state.redirect === 1) {
       redirect = (
@@ -45,17 +50,25 @@ class About extends React.Component {
       );
     } else if (this.state.redirect === 2) {
       return <Redirect to="/" />;
+    } else {
+      renderMovie = (
+        <div>
+          <h2>{movie.title}</h2>
+          <p>{movie.description}</p>
+          <p>{movie.director}</p>
+          <p>{movie.rating}</p>
+        </div>
+      );
     }
 
     return (
       <>
         <Helmet>
-          <title> .... </title>
+          <title>{movie.title}</title>
         </Helmet>
         <div className={"aboutContainer"}>
           {redirect}
-          <h2>{}</h2>
-          <p>om filmen</p>
+          {renderMovie}
         </div>
       </>
     );
