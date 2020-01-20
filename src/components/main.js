@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 class Main extends React.Component {
   constructor(props) {
@@ -32,7 +33,8 @@ class Main extends React.Component {
       movieList = movies.map(movie => {
         return (
           <tr key={movie.id}>
-            <td>{movie.title}</td>
+            
+            <td><Link to={'/main/' + movie.id}>{movie.title}</Link></td>
             <td>{movie.director}</td>
             <td>{movie.rating}</td>
             <td>
@@ -41,6 +43,7 @@ class Main extends React.Component {
             <td>
               <button>Delete</button>
             </td>
+            
           </tr>
         );
       });

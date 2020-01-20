@@ -12,5 +12,5 @@ class Nav extends React.Component {
   }
 }
 
-// export default Nav;
-export default withRouter(Nav);
+export default Nav;
+// export default withRouter(Nav);
