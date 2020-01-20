@@ -6,7 +6,7 @@ class AddMovie extends React.Component {
     return (
       <>
         <Helmet>
-          <title>Main</title>
+          <title>Add movie</title>
         </Helmet>
         <div className={'addContainer'}>
             <h2>Add your favorite movie</h2>

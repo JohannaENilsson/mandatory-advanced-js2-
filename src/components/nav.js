@@ -6,11 +6,11 @@ class Nav extends React.Component {
     return (
       <>
         <Link to="/"> Main </Link>
-        <Link to="/addMovie"> Add new movie </Link>
+        <Link to="/add-Movie"> Add new movie </Link>
       </>
     );
   }
 }
 
-export default Nav;
-// export default withRouter(Nav);
+// export default Nav;
+export default withRouter(Nav);
