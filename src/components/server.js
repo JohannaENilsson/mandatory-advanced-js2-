@@ -12,13 +12,12 @@ class Server extends React.Component {
       .get("http://3.120.96.16:3001/movies")
       .then(res => {
         this.setState({ movies: res.data });
-        console.log("Server got data ", this.state.movies);
+        // console.log("Server got data ", this.state.movies);
         console.log(res.status);
       })
       .then(
         (this.sendData = () => {
           this.props.getServerData(this.state.movies);
-          console.log("when am i happend?");
         })
       )
       .catch(err => {

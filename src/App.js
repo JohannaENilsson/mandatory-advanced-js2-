@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import './App.css';
-import Main from './main.js';
-import Nav from './nav.js';
-import AddMovie from './addNewMovie.js';
-import Server from './server.js';
+import Main from './components/main.js';
+import Nav from './components/nav.js';
+import AddMovie from './components/addNewMovie.js';
+import Server from './components/server.js';
 
 
 
@@ -13,21 +13,15 @@ class App extends React.Component {
     super(props);
     this.state = {movies: []}
     this.getServerData = this.getServerData.bind(this);
-    // this.sendServerData = this.sendServerData.bind(this);
   }
 
 
 getServerData = (childData) => {
-  console.log('childData', childData);
+  // console.log('childData', childData);
   this.setState({movies: childData});
-  
 }
 
-
-
-  render(){
-    console.log('App got data ', this.state.movies);
-    
+  render(){    
     return (
       <div className="App">
         <Router>

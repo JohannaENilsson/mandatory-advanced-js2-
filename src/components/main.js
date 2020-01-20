@@ -4,10 +4,6 @@ import { Helmet } from "react-helmet";
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { movies: [] };
-  }
-  componentDidMount(){
-    console.log(this.props.movies);
   }
 
   componentDidUpdate(){
@@ -15,8 +11,18 @@ class Main extends React.Component {
   }
 
   render() {
-  
 
+    let movies = this.props.movies;
+
+        const movieList = movies.map(movie => {
+          return (
+            <tr key={movie.id}>
+              <td>{movie.title}</td>
+              <td>{movie.director}</td>
+              <td>{movie.rating}</td>
+            </tr>
+          )
+        });
     return (
       <>
         <Helmet>
@@ -31,7 +37,11 @@ class Main extends React.Component {
                 <th>Rating</th>
               </tr>
             </thead>
+            <tbody>
+            {movieList}
+            </tbody>
           </table>
+          
         </div>
       </>
     );
@@ -40,14 +50,4 @@ class Main extends React.Component {
 
 export default Main;
 
-// let movies = this.state.movies;
 
-//         const movieList = movies.map(movie => {
-//           return (
-//             <tr key={movie.id}>
-//               <td>{movie.title}</td>
-//               <td>{movie.director}</td>
-//               <td>{movie.rating}</td>
-//             </tr>
-//           )
-//         });
