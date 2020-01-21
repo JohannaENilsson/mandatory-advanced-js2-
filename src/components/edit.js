@@ -20,9 +20,8 @@ class Edit extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handelRedirect = this.handelRedirect.bind(this);
+    this.handelRedirect = this.handelRedirect.bind(this);
  
-
   }
 
   componentDidMount() {
@@ -46,8 +45,8 @@ class Edit extends React.Component {
       })
       .catch(err => {
         console.log("Err", err);
-        this.setState({ redirect: 1 });
-        // this.handelRedirect();
+        this.setState({ redirect: 4 });
+        this.handelRedirect();
       });
   }
 
@@ -70,11 +69,9 @@ class Edit extends React.Component {
     .then(res => {
       console.log(res.data);
       this.setState({redirect: 1});
+      this.handelRedirect();
     });
-     
-  
   }
-
 
   handleReset(e) {
     e.preventDefault();
@@ -83,11 +80,36 @@ class Edit extends React.Component {
     });
   }
 
+  handelRedirect() {
+    setTimeout(() => {
+      this.setState({ redirect: 2 });
+    }, 3000);
+  }
+
 
   render(){  
     console.log(this.state);  
     let editMovie;
+    let redirect;
+    let error;
+    if (this.state.redirect === 1) {
+      redirect = (
+        <div className="success">
+          Your change was successful. You will be redirected to the
+          main paige
+        </div>
+      );
+    } else if(this.state.redirect === 4) {
+      error = (
+      <div className="error">
+      Sorry, no change was made. You will be redirected to the
+      main paige
+    </div>
+    );
 
+    }else if (this.state.redirect === 2) {
+      return <Redirect to="/" />;
+    } else {
     editMovie = <div>
     <h2>Add your favorite movie</h2>
       <form onSubmit={this.handleSubmit}>
@@ -127,6 +149,7 @@ class Edit extends React.Component {
         <button onClick={this.handleReset}>Reset</button>
       </form>
   </div>
+    }
 
     return (
       <>
@@ -134,10 +157,9 @@ class Edit extends React.Component {
       <title>{this.state.title}</title>
     </Helmet>
       <div className="addContainer">
-        
+        {redirect}
+        {error}
         {editMovie}
-
-        
       </div>
       </>
     );
