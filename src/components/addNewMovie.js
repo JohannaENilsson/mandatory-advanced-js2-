@@ -1,22 +1,25 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 
 class AddMovie extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
         title: "The Fifth Element",
         description:
           "In the colorful future, a cab driver unwittingly becomes the central figure in.",
         director: "Luc Besson",
-        rating: 4.7
-      
+        rating: 4.7,
+        redirect: 0
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handelRedirect = this.handelRedirect.bind(this);
+    this.handleAddAnother = this.handleAddAnother.bind(this);
+
   }
 
 
@@ -36,7 +39,10 @@ class AddMovie extends React.Component {
     } 
 
     axios.post( "http://3.120.96.16:3001/movies", movie)
-    .then(res => console.log(res.data));
+    .then(res => {
+      console.log(res.data);
+      this.setState({redirect: 1});
+    });
      
   
   }
@@ -44,20 +50,38 @@ class AddMovie extends React.Component {
   handleReset(e) {
     e.preventDefault();
     this.setState({
-       title: "", description: "", director: "", rating: "" 
+       title: "", description: "", director: "", rating: "", redirect: 0, 
     });
+  }
+
+  handleAddAnother() {
+    this.setState({
+       title: "", description: "", director: "", rating: "", redirect: 0, 
+    });
+  }
+
+  handelRedirect() {
+    setTimeout(() => {
+      this.setState({ redirect: 2 });
+    }, 3000);
   }
 
 
   render() {
     console.log(this.state);
-    return (
-      <>
-        <Helmet>
-          <title>Add movie</title>
-        </Helmet>
-        <div className={"addContainer"}>
-          <h2>Add your favorite movie</h2>
+    let addMovie;
+
+    if(this.state.redirect === 1) { /// Varför?
+      if (window.confirm("You added a movie.Do you want to add another movie?")) { 
+        this.handleAddAnother();
+      } else {
+        this.handelRedirect();
+      }
+    } else if (this.state.redirect === 2) {
+      return <Redirect to="/" />;
+    } else {
+      addMovie = <div>
+        <h2>Add your favorite movie</h2>
           <form onSubmit={this.handleSubmit}>
             <label>Title: </label>
             <input
@@ -94,6 +118,17 @@ class AddMovie extends React.Component {
             <button>Add</button>
             <button onClick={this.handleReset}>Reset</button>
           </form>
+      </div>
+    }
+
+
+    return (
+      <>
+        <Helmet>
+          <title>Add movie</title>
+        </Helmet>
+        <div className={"addContainer"}>
+          {addMovie}
         </div>
       </>
     );
