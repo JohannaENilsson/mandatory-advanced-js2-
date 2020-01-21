@@ -38,7 +38,7 @@ class Main extends React.Component {
             <td>{movie.director}</td>
             <td>{movie.rating}</td>
             <td>
-              <button>Edit</button>
+              <button><Link to={'/edit/' + movie.id}>Edit</Link></button>
             </td>
             <td>
               <button>Delete</button>

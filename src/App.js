@@ -5,6 +5,7 @@ import Main from './components/main.js';
 import About from './components/about.js';
 import Nav from './components/nav.js';
 import AddMovie from './components/addNewMovie.js';
+import Edit from './components/edit.js';
 
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
           <Route exact path='/' component={Main}/>
           <Route path='/add-movie' component={AddMovie} />
           <Route path='/main/:id' component={About} />
+          <Route path='/edit/:id' component={Edit} />
         </Router>
         
         

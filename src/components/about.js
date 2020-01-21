@@ -57,6 +57,8 @@ class About extends React.Component {
           <p>{movie.description}</p>
           <p>{movie.director}</p>
           <p>{movie.rating}</p>
+          <button>Edit</button>
+          <button>Remove</button>
         </div>
       );
     }
