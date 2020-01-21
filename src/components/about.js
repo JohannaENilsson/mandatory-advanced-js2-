@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class About extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class About extends React.Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
+    console.log(id);
     axios
       .get("http://3.120.96.16:3001/movies/" + id)
       .then(res => {
@@ -57,7 +59,7 @@ class About extends React.Component {
           <p>{movie.description}</p>
           <p>{movie.director}</p>
           <p>{movie.rating}</p>
-          <button>Edit</button>
+          <button><Link to={'/edit/' + movie.id}>Edit</Link></button>
           <button>Remove</button>
         </div>
       );
