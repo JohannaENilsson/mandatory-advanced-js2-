@@ -7,9 +7,16 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = { movies: [] };
+    
+    this.handleGetReq = this.handleGetReq.bind(this);
+    this.handleDeleteReq = this.handleDeleteReq.bind(this);
   }
 
   componentDidMount() {
+    this.handleGetReq();
+  }
+
+  handleGetReq(){
     axios
       .get("http://3.120.96.16:3001/movies")
       .then(res => {
@@ -19,8 +26,20 @@ class Main extends React.Component {
       })
       .catch(err => {
         console.log("Err", err);
-      });
+      }); 
   }
+handleDeleteReq(e){
+  let id = e.target.id;
+  console.log(id);
+  axios.delete("http://3.120.96.16:3001/movies/" + id)
+  .then(res => {
+    console.log(res.status);
+    this.handleGetReq();
+  })
+  .catch(err => {
+    console.log("Err", err);
+  });
+}
 
   render() {
     let table;
@@ -41,7 +60,7 @@ class Main extends React.Component {
               <button><Link to={'/edit/' + movie.id}>Edit</Link></button>
             </td>
             <td>
-              <button>Delete</button>
+              <button onClick={this.handleDeleteReq} id={movie.id}>Delete</button>
             </td>
             
           </tr>
