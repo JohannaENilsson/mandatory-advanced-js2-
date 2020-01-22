@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import './App.css';
-import Main from './components/main.js';
-import About from './components/about.js';
-import Nav from './components/nav.js';
-import AddMovie from './components/addNewMovie.js';
-import Edit from './components/edit.js';
+import Main from './components/Main.js';
+import About from './components/About.js';
+import Nav from './components/Nav.js';
+import AddMovie from './components/AddNewMovie.js';
+import Edit from './components/Edit.js';
 
 
 class App extends React.Component {
