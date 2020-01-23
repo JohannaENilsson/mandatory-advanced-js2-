@@ -1,27 +1,23 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import {Redirect} from 'react-router-dom';
-import axios from 'axios';
-
-
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 class Edit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id:'',
-        title: "",
-        description:
-          "",
-        director: "",
-        rating: 0,
-        redirect: 0
+      id: "",
+      title: "",
+      description: "",
+      director: "",
+      rating: 0,
+      redirect: 0
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handelRedirect = this.handelRedirect.bind(this);
- 
   }
 
   componentDidMount() {
@@ -34,13 +30,13 @@ class Edit extends React.Component {
         console.log(data);
 
         if (data) {
-          this.setState({ 
+          this.setState({
             id: data.id,
             title: data.title,
             description: data.description,
             director: data.director,
             rating: data.rating
-           });
+          });
         }
       })
       .catch(err => {
@@ -56,111 +52,131 @@ class Edit extends React.Component {
     this.setState({ [name]: e.target.value });
   }
 
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
     const movie = {
       title: this.state.title,
       description: this.state.description,
       director: this.state.director,
-      rating: this.state.rating,
-    } 
-
-    axios.put( "http://3.120.96.16:3001/movies/" + this.state.id, movie)
-    .then(res => {
-      console.log(res.data);
-      this.setState({redirect: 1});
-      this.handelRedirect();
-    });
+      rating: this.state.rating
+    };
+    if (
+      movie.title.trim().length !== 0 &&
+      movie.description.trim().length !== 0 &&
+      movie.director.trim().length !== 0
+    ) {
+      axios
+        .put("http://3.120.96.16:3001/movies/" + this.state.id, movie)
+        .then(res => {
+          console.log(res.data);
+          this.setState({ redirect: 1 });
+          this.handelRedirect();
+        });
+    }
   }
 
   handleReset(e) {
     e.preventDefault();
     this.setState({
-       title: "", description: "", director: "", rating: "", redirect: 0, 
+      title: "",
+      description: "",
+      director: "",
+      rating: "",
+      redirect: 0
     });
   }
 
   handelRedirect() {
     setTimeout(() => {
       this.setState({ redirect: 2 });
-    }, 3000);
+    }, 1000);
   }
 
-
-  render(){  
-    console.log(this.state);  
+  render() {
+    console.log(this.state);
     let editMovie;
     let redirect;
     let error;
     if (this.state.redirect === 1) {
       redirect = (
         <div className="success">
-          Your change was successful. You will be redirected to the
-          main paige
+          Your change was successful. You will be redirected to the main paige
         </div>
       );
-    } else if(this.state.redirect === 4) {
+    } else if (this.state.redirect === 4) {
       error = (
-      <div className="error">
-      Sorry, no change was made. You will be redirected to the
-      main paige
-    </div>
-    );
-
-    }else if (this.state.redirect === 2) {
+        <div className="error">
+          Sorry, no change was made. You will be redirected to the main paige
+        </div>
+      );
+    } else if (this.state.redirect === 2) {
       return <Redirect to="/" />;
     } else {
-    editMovie = <div>
-    <h2>Add your favorite movie</h2>
-      <form onSubmit={this.handleSubmit}>
-        <label>Title: </label>
-        <input
-          onChange={this.handleInputChange}
-          type="text"
-          name='title'
-          value={this.state.title}
-        ></input>
+      editMovie = (
+        <div>
+          <h2>Add your favorite movie</h2>
+          <form onSubmit={this.handleSubmit}>
+            <label>Title: </label>
+            <input
+              onChange={this.handleInputChange}
+              type="text"
+              name="title"
+              value={this.state.title}
+              required
+              minLength="1"
+              maxLength="40"
+            ></input>
 
-        <label>Director: </label>
-        <input
-          onChange={this.handleInputChange}
-          type="text"
-          name='director'
-          value={this.state.director}
-        ></input>
+            <label>Director: </label>
+            <input
+              onChange={this.handleInputChange}
+              type="text"
+              name="director"
+              value={this.state.director}
+              required
+              minLength="1"
+              maxLength="40"
+            ></input>
 
-        <label>Description: </label>
-        <textarea
-          onChange={this.handleInputChange}
-          type="text"
-          name='description'
-          value={this.state.description}
-        ></textarea>
+            <label>Description: </label>
+            <textarea
+              onChange={this.handleInputChange}
+              type="text"
+              name="description"
+              value={this.state.description}
+              required
+              minLength="1"
+              maxLength="300"
+            ></textarea>
 
-        <label>Rating: </label>
-        <input
-          onChange={this.handleInputChange}
-          type="number"
-          name='rating'
-          value={this.state.rating}
-        ></input>
+            <label>Rating: </label>
+            <input
+              onChange={this.handleInputChange}
+              type="number"
+              name="rating"
+              value={this.state.rating}
+              required
+              min="0,0"
+              max="5,0"
+            ></input>
 
-        <button>Add</button>
-        <button onClick={this.handleReset}>Reset</button>
-      </form>
-  </div>
+            <button>Add</button>
+            <button onClick={this.handleReset}>Reset</button>
+          </form>
+        </div>
+      );
     }
 
     return (
       <>
-      <Helmet>
-      <title>{this.state.title}</title>
-    </Helmet>
-      <div className="addContainer">
-        {redirect}
-        {error}
-        {editMovie}
-      </div>
+        <Helmet>
+          <title>{this.state.title}</title>
+        </Helmet>
+        <div className="addContainer">
+          {redirect}
+          {error}
+          {editMovie}
+        </div>
       </>
     );
   }

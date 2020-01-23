@@ -7,7 +7,6 @@ class Nav extends React.Component {
       <>
         <Link to="/"> Main </Link>
         <Link to="/add-Movie"> Add movie </Link>
-        <Link to="/edit"> Edit </Link>
       </>
     );
   }
