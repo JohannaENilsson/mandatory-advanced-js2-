@@ -46,6 +46,7 @@ class Edit extends React.Component {
       });
   }
 
+
   handleInputChange(e) {
     const target = e.target;
     const name = target.name;

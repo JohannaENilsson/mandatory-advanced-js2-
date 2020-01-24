@@ -45,6 +45,18 @@ class AddMovie extends React.Component {
       axios.post("http://3.120.96.16:3001/movies", movie).then(res => {
         console.log(res.data);
         this.setState({ redirect: 1 });
+        if (this.state.redirect === 1) {
+          if (
+            window.confirm(
+              "You added a movie.Do you want to add another movie?"
+            )
+          ) {
+            this.handleAddAnother();
+            // <Redirect to="/add-movie" />;
+          } else {
+            this.handelRedirect();
+          }
+        }
       });
     }
   }
@@ -80,17 +92,7 @@ class AddMovie extends React.Component {
     console.log(this.state);
     let addMovie;
 
-    if (this.state.redirect === 1) {
-      /// Varför?
-      if (
-        window.confirm("You added a movie.Do you want to add another movie?")
-      ) {
-        this.handleAddAnother();
-        // <Redirect to="/add-movie" />;
-      } else {
-        this.handelRedirect();
-      }
-    } else if (this.state.redirect === 2) {
+    if (this.state.redirect === 2) {
       return <Redirect to="/" />;
     } else {
       addMovie = (
