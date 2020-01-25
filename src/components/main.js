@@ -2,18 +2,24 @@ import React from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import SearchForm from './SearchForm.js'
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { movies: [] };
+    this.state = { movies: [], search: '' };
     
     this.handleGetReq = this.handleGetReq.bind(this);
     this.handleDeleteReq = this.handleDeleteReq.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
     this.handleGetReq();
+  }
+
+  onChange(value){
+    this.setState({search: value});
   }
 
   handleGetReq(){
@@ -41,6 +47,7 @@ handleDeleteReq(e){
   });
 }
 
+
   render() {
     let table;
     let loading;
@@ -49,7 +56,10 @@ handleDeleteReq(e){
     if (this.state.movies.length !== 0) {
       let movies = this.state.movies;
 
-      movieList = movies.map(movie => {
+      movieList = movies.filter(movie => {
+        if(movie.title.toLowerCase().includes(this.state.search.toLowerCase()) || movie.director.toLowerCase().includes(this.state.search.toLowerCase())) return movie;
+      })
+      .map(movie => {
         return (
           <tr key={movie.id}>
             
@@ -91,6 +101,7 @@ handleDeleteReq(e){
           <title>Main</title>
         </Helmet>
         <div className={"tableContainer"}>
+          <SearchForm onChange={this.onChange} search={this.state.search}/>
           {loading}
           {table}
         </div>
