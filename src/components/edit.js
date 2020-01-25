@@ -18,6 +18,7 @@ class Edit extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handelRedirect = this.handelRedirect.bind(this);
+ 
   }
 
   componentDidMount() {
@@ -75,6 +76,13 @@ class Edit extends React.Component {
         });
     }
   }
+  onKeyPress = (e) => {
+    if(e.keyCode === 13) {
+      console.log(e);
+      e.preventDefault();
+      this.handleSubmit(e);
+    }
+  }
 
   handleReset(e) {
     e.preventDefault();
@@ -116,7 +124,7 @@ class Edit extends React.Component {
       editMovie = (
         <div>
           <h2>Add your favorite movie</h2>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} onKeyPress={this.onKeyPress}>
             <label>Title: </label>
             <input
               onChange={this.handleInputChange}

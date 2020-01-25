@@ -19,6 +19,7 @@ class AddMovie extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handelRedirect = this.handelRedirect.bind(this);
     this.handleAddAnother = this.handleAddAnother.bind(this);
+
   }
 
   handleInputChange(e) {
@@ -60,6 +61,13 @@ class AddMovie extends React.Component {
       });
     }
   }
+  onKeyPress = (e) => {
+    if(e.keyCode === 13) {
+      console.log(e);
+      e.preventDefault();
+      this.handleSubmit(e);
+    }
+  }
 
   handleReset(e) {
     e.preventDefault();
@@ -98,7 +106,7 @@ class AddMovie extends React.Component {
       addMovie = (
         <div>
           <h2>Add your favorite movie</h2>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} onKeyPress={this.onKeyPress}>
             <label>Title: </label>
             <input
               onChange={this.handleInputChange}
