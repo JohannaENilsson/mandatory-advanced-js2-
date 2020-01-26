@@ -19,13 +19,39 @@ class AddMovie extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handelRedirect = this.handelRedirect.bind(this);
     this.handleAddAnother = this.handleAddAnother.bind(this);
+  }
 
+  handleAddAnother() {
+    this.setState({
+      title: "",
+      description: "",
+      director: "",
+      rating: "",
+      redirect: 0
+    });
   }
 
   handleInputChange(e) {
     const target = e.target;
     const name = target.name;
     this.setState({ [name]: e.target.value });
+  }
+
+  handelRedirect() {
+    setTimeout(() => {
+      this.setState({ redirect: 2 });
+    }, 1500);
+  }
+
+  handleReset(e) {
+    e.preventDefault();
+    this.setState({
+      title: "",
+      description: "",
+      director: "",
+      rating: "",
+      redirect: 0
+    });
   }
 
   handleSubmit(e) {
@@ -43,64 +69,49 @@ class AddMovie extends React.Component {
       movie.description.trim().length !== 0 &&
       movie.director.trim().length !== 0
     ) {
-      axios.post("http://3.120.96.16:3001/movies", movie).then(res => {
-        console.log(res.data);
-        this.setState({ redirect: 1 });
-        if (this.state.redirect === 1) {
-          if (
-            window.confirm(
-              "You added a movie.Do you want to add another movie?"
-            )
-          ) {
-            this.handleAddAnother();
-            // <Redirect to="/add-movie" />;
-          } else {
-            this.handelRedirect();
+      axios
+        .post("http://3.120.96.16:3001/movies", movie)
+        .then(res => {
+          console.log(res.data);
+          this.setState({ redirect: 1 });
+          if (this.state.redirect === 1) {
+            if (
+              window.confirm(
+                "You added a movie.Do you want to add another movie?"
+              )
+            ) {
+              this.handleAddAnother();
+            } else {
+              this.handelRedirect();
+            }
           }
-        }
-      });
+        })
+        .catch(err => {
+          console.log("Err", err);
+          this.setState({ redirect: 4 });
+          this.handelRedirect();
+        });
     }
   }
-  onKeyPress = (e) => {
-    if(e.keyCode === 13) {
-      console.log(e);
+  onKeyPress = e => {
+    if (e.keyCode === 13) {
       e.preventDefault();
       this.handleSubmit(e);
     }
-  }
-
-  handleReset(e) {
-    e.preventDefault();
-    this.setState({
-      title: "",
-      description: "",
-      director: "",
-      rating: "",
-      redirect: 0
-    });
-  }
-
-  handleAddAnother() {
-    this.setState({
-      title: "",
-      description: "",
-      director: "",
-      rating: "",
-      redirect: 0
-    });
-  }
-
-  handelRedirect() {
-    setTimeout(() => {
-      this.setState({ redirect: 2 });
-    }, 1000);
-  }
+  };
 
   render() {
-    console.log(this.state);
     let addMovie;
+    let error;
 
-    if (this.state.redirect === 2) {
+    if (this.state.redirect === 4) {
+      error = (
+        <div className="error">
+          Sorry, something went wrong could not add the movie. You will be
+          redirected to the main paige
+        </div>
+      );
+    } else if (this.state.redirect === 2) {
       return <Redirect to="/" />;
     } else {
       addMovie = (
@@ -147,8 +158,9 @@ class AddMovie extends React.Component {
               name="rating"
               value={this.state.rating}
               required
-              min="0,0"
-              max="5,0"
+              min="0"
+              max="5"
+              step="0.1"
             ></input>
 
             <button>Add</button>
@@ -163,7 +175,10 @@ class AddMovie extends React.Component {
         <Helmet>
           <title>Add movie</title>
         </Helmet>
-        <div className={"addContainer"}>{addMovie}</div>
+        <div className={"addContainer"}>
+          {error}
+          {addMovie}
+        </div>
       </>
     );
   }

@@ -18,7 +18,6 @@ class Edit extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handelRedirect = this.handelRedirect.bind(this);
- 
   }
 
   componentDidMount() {
@@ -47,7 +46,6 @@ class Edit extends React.Component {
       });
   }
 
-
   handleInputChange(e) {
     const target = e.target;
     const name = target.name;
@@ -73,17 +71,20 @@ class Edit extends React.Component {
           console.log(res.data);
           this.setState({ redirect: 1 });
           this.handelRedirect();
+        })
+        .catch(err => {
+          console.log("Err", err);
+          this.setState({ redirect: 4 });
+          this.handelRedirect();
         });
     }
   }
-  onKeyPress = (e) => {
-    if(e.keyCode === 13) {
-      console.log(e);
-      e.preventDefault();
-      this.handleSubmit(e);
-    }
-  }
 
+  handelRedirect() {
+    setTimeout(() => {
+      this.setState({ redirect: 2 });
+    }, 1000);
+  }
   handleReset(e) {
     e.preventDefault();
     this.setState({
@@ -95,11 +96,12 @@ class Edit extends React.Component {
     });
   }
 
-  handelRedirect() {
-    setTimeout(() => {
-      this.setState({ redirect: 2 });
-    }, 1000);
-  }
+  onKeyPress = e => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.handleSubmit(e);
+    }
+  };
 
   render() {
     console.log(this.state);
@@ -165,8 +167,9 @@ class Edit extends React.Component {
               name="rating"
               value={this.state.rating}
               required
-              min="0,0"
-              max="5,0"
+              min="0"
+              max="5"
+              step="0.1"
             ></input>
 
             <button>Add</button>
