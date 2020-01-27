@@ -51,6 +51,21 @@ class Edit extends React.Component {
     const name = target.name;
     this.setState({ [name]: e.target.value });
   }
+  handelRedirect() {
+    setTimeout(() => {
+      this.setState({ redirect: 2 });
+    }, 1000);
+  }
+  handleReset(e) {
+    e.preventDefault();
+    this.setState({
+      title: "",
+      description: "",
+      director: "",
+      rating: "",
+      redirect: 0
+    });
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -78,22 +93,6 @@ class Edit extends React.Component {
           this.handelRedirect();
         });
     }
-  }
-
-  handelRedirect() {
-    setTimeout(() => {
-      this.setState({ redirect: 2 });
-    }, 1000);
-  }
-  handleReset(e) {
-    e.preventDefault();
-    this.setState({
-      title: "",
-      description: "",
-      director: "",
-      rating: "",
-      redirect: 0
-    });
   }
 
   onKeyPress = e => {
@@ -184,7 +183,7 @@ class Edit extends React.Component {
         <Helmet>
           <title>{this.state.title}</title>
         </Helmet>
-        <div className="addContainer">
+        <div className="form container">
           {redirect}
           {error}
           {editMovie}

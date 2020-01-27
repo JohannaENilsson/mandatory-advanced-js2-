@@ -2,13 +2,13 @@ import React from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import SearchForm from './SearchForm.js'
+import SearchForm from "./SearchForm.js";
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { movies: [], search: '' };
-    
+    this.state = { movies: [], search: "" };
+
     this.handleGetReq = this.handleGetReq.bind(this);
     this.handleDeleteReq = this.handleDeleteReq.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -18,11 +18,25 @@ class Main extends React.Component {
     this.handleGetReq();
   }
 
-  onChange(value){
-    this.setState({search: value});
+  onChange(value) {
+    this.setState({ search: value });
   }
 
-  handleGetReq(){
+  handleDeleteReq(e) {
+    let id = e.target.id;
+    console.log(id);
+    axios
+      .delete("http://3.120.96.16:3001/movies/" + id)
+      .then(res => {
+        console.log(res.status);
+        this.handleGetReq();
+      })
+      .catch(err => {
+        console.log("Err", err);
+      });
+  }
+
+  handleGetReq() {
     axios
       .get("http://3.120.96.16:3001/movies")
       .then(res => {
@@ -32,21 +46,8 @@ class Main extends React.Component {
       })
       .catch(err => {
         console.log("Err", err);
-      }); 
+      });
   }
-handleDeleteReq(e){
-  let id = e.target.id;
-  console.log(id);
-  axios.delete("http://3.120.96.16:3001/movies/" + id)
-  .then(res => {
-    console.log(res.status);
-    this.handleGetReq();
-  })
-  .catch(err => {
-    console.log("Err", err);
-  });
-}
-
 
   render() {
     let table;
@@ -56,26 +57,39 @@ handleDeleteReq(e){
     if (this.state.movies.length !== 0) {
       let movies = this.state.movies;
 
-      movieList = movies.filter(movie => {
-        if(movie.title.toLowerCase().includes(this.state.search.toLowerCase()) || movie.director.toLowerCase().includes(this.state.search.toLowerCase())) return movie;
-      })
-      .map(movie => {
-        return (
-          <tr key={movie.id}>
-            
-            <td><Link to={'/main/' + movie.id}>{movie.title}</Link></td>
-            <td>{movie.director}</td>
-            <td>{movie.rating}</td>
-            <td>
-              <button><Link to={'/edit/' + movie.id}>Edit</Link></button>
-            </td>
-            <td>
-              <button onClick={this.handleDeleteReq} id={movie.id}>Delete</button>
-            </td>
-            
-          </tr>
-        );
-      });
+      movieList = movies
+        .filter(movie => {
+          if (
+            movie.title
+              .toLowerCase()
+              .includes(this.state.search.toLowerCase()) ||
+            movie.director
+              .toLowerCase()
+              .includes(this.state.search.toLowerCase())
+          )
+            return movie;
+        })
+        .map(movie => {
+          return (
+            <tr key={movie.id}>
+              <td>
+                <Link to={"/main/" + movie.id}>{movie.title}</Link>
+              </td>
+              <td>{movie.director}</td>
+              <td>{movie.rating}</td>
+              <td>
+                <button>
+                  <Link to={"/edit/" + movie.id}>Edit</Link>
+                </button>
+              </td>
+              <td>
+                <button onClick={this.handleDeleteReq} id={movie.id}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          );
+        });
 
       table = (
         <table>
@@ -100,8 +114,8 @@ handleDeleteReq(e){
         <Helmet>
           <title>Main</title>
         </Helmet>
-        <div className={"tableContainer"}>
-          <SearchForm onChange={this.onChange} search={this.state.search}/>
+        <div className={"tableContainer container"}>
+          <SearchForm onChange={this.onChange} search={this.state.search} />
           {loading}
           {table}
         </div>

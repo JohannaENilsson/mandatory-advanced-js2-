@@ -30,25 +30,25 @@ class About extends React.Component {
         this.handelRedirect();
       });
   }
-  
+
+  handleDeleteReq(e) {
+    let id = e.target.id;
+    console.log(id);
+    axios
+      .delete("http://3.120.96.16:3001/movies/" + id)
+      .then(res => {
+        console.log(res.status);
+        this.handelRedirect();
+      })
+      .catch(err => {
+        console.log("Err", err);
+      });
+  }
 
   handelRedirect() {
     setTimeout(() => {
       this.setState({ redirect: 2 });
     }, 3000);
-  }
-
-  handleDeleteReq(e){
-    let id = e.target.id;
-    console.log(id);
-    axios.delete("http://3.120.96.16:3001/movies/" + id)
-    .then(res => {
-      console.log(res.status);
-      this.handelRedirect();
-    })
-    .catch(err => {
-      console.log("Err", err);
-    });
   }
 
   render() {
@@ -74,8 +74,12 @@ class About extends React.Component {
           <p>{movie.description}</p>
           <p>{movie.director}</p>
           <p>{movie.rating}</p>
-          <button><Link to={'/edit/' + movie.id}>Edit</Link></button>
-          <button onClick={this.handleDeleteReq} id={movie.id}>Remove</button>
+          <button>
+            <Link to={"/edit/" + movie.id}>Edit</Link>
+          </button>
+          <button onClick={this.handleDeleteReq} id={movie.id}>
+            Remove
+          </button>
         </div>
       );
     }
@@ -85,7 +89,7 @@ class About extends React.Component {
         <Helmet>
           <title>{movie.title}</title>
         </Helmet>
-        <div className={"aboutContainer"}>
+        <div className={"aboutContainer container"}>
           {redirect}
           {renderMovie}
         </div>

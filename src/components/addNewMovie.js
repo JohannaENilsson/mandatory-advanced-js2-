@@ -77,7 +77,7 @@ class AddMovie extends React.Component {
           if (this.state.redirect === 1) {
             if (
               window.confirm(
-                "You added a movie.Do you want to add another movie?"
+                "You added a movie. Do you want to add another movie?"
               )
             ) {
               this.handleAddAnother();
@@ -107,8 +107,8 @@ class AddMovie extends React.Component {
     if (this.state.redirect === 4) {
       error = (
         <div className="error">
-          Sorry, something went wrong could not add the movie. You will be
-          redirected to the main paige
+          Something went wrong, could not add the movie. You will be redirected
+          to the main paige
         </div>
       );
     } else if (this.state.redirect === 2) {
@@ -175,7 +175,7 @@ class AddMovie extends React.Component {
         <Helmet>
           <title>Add movie</title>
         </Helmet>
-        <div className={"addContainer"}>
+        <div className={"form container"}>
           {error}
           {addMovie}
         </div>
