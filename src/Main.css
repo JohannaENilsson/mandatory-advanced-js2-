@@ -1,4 +1,4 @@
-.tableContainer tbody tr:first-child td:first-child {
+ .tableContainer tbody tr:first-child td:first-child {
     border-radius: 15px 0px 0px 0px;
   }
   .tableContainer tbody tr:first-child td:last-child  {
@@ -15,7 +15,7 @@
   .tableContainer{
       display: flex;
       justify-content: center;
-  
+ 
   }
 .tableContainer table{
     border-collapse: collapse; 
@@ -51,12 +51,12 @@
   @media (max-width: 600px){
 
   
-     .tableContainer td, th {
+ .tableContainer td, th {
       height: 50px;
-      padding: 3px 3px 3px 9px;
+      padding: 0px 0px 0px 0px;
       width: 100%;
+    } 
     }
-    }
   
   
-  
+ 

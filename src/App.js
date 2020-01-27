@@ -17,10 +17,11 @@ class App extends React.Component {
         <Router>
           <header>
             <h1>The movies</h1>
-            <div className="head">
+            
               <Nav />
-            </div>
+              
           </header>
+          <div className="round"></div>
 
           <Route exact path="/" component={Main} />
           <Route path="/add" component={Add} />
