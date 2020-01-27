@@ -20,6 +20,7 @@ class SearchForm extends React.Component {
         type="text"
         value={this.props.search}
         onChange={this.onChange}
+        className={'search'}
       ></input>
     );
   }

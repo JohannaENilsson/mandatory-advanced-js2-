@@ -54,7 +54,7 @@ class Edit extends React.Component {
   handelRedirect() {
     setTimeout(() => {
       this.setState({ redirect: 2 });
-    }, 1000);
+    }, 3000);
   }
   handleReset(e) {
     e.preventDefault();
@@ -124,7 +124,7 @@ class Edit extends React.Component {
     } else {
       editMovie = (
         <div>
-          <h2>Add your favorite movie</h2>
+    <h2>Edit</h2>
           <form onSubmit={this.handleSubmit} onKeyPress={this.onKeyPress}>
             <label>Title: </label>
             <input

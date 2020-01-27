@@ -5,8 +5,10 @@ class Nav extends React.Component {
   render() {
     return (
       <>
-        <Link to="/"> Main </Link>
-        <Link to="/add-Movie"> Add movie </Link>
+      
+        <Link className='nav' to="/"> Main </Link>
+        <Link className='nav' to="/add"> Add </Link>
+     
       </>
     );
   }

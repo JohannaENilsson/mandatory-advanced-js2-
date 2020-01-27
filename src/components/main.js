@@ -76,7 +76,7 @@ class Main extends React.Component {
                 <Link to={"/main/" + movie.id}>{movie.title}</Link>
               </td>
               <td>{movie.director}</td>
-              <td>{movie.rating}</td>
+              <td>	&#11088; {movie.rating}</td>
               <td>
                 <button>
                   <Link to={"/edit/" + movie.id}>Edit</Link>
@@ -114,8 +114,8 @@ class Main extends React.Component {
         <Helmet>
           <title>Main</title>
         </Helmet>
+        <SearchForm onChange={this.onChange} search={this.state.search} />
         <div className={"tableContainer container"}>
-          <SearchForm onChange={this.onChange} search={this.state.search} />
           {loading}
           {table}
         </div>

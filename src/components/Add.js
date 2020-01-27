@@ -3,15 +3,15 @@ import { Helmet } from "react-helmet";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
-class AddMovie extends React.Component {
+class Add extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "The Fifth Element",
+      title: "",
       description:
-        "In the colorful future, a cab driver unwittingly becomes the central figure in.",
-      director: "Luc Besson",
-      rating: 4.7,
+        "",
+      director: "",
+      rating: '',
       redirect: 0
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -40,7 +40,7 @@ class AddMovie extends React.Component {
   handelRedirect() {
     setTimeout(() => {
       this.setState({ redirect: 2 });
-    }, 1500);
+    }, 2000);
   }
 
   handleReset(e) {
@@ -107,8 +107,8 @@ class AddMovie extends React.Component {
     if (this.state.redirect === 4) {
       error = (
         <div className="error">
-          Something went wrong, could not add the movie. You will be redirected
-          to the main paige
+          Something went wrong, could not add the movie. 
+          <br/>You will be redirected to the main paige
         </div>
       );
     } else if (this.state.redirect === 2) {
@@ -184,4 +184,4 @@ class AddMovie extends React.Component {
   }
 }
 
-export default AddMovie;
+export default Add;

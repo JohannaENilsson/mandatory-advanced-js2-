@@ -72,8 +72,8 @@ class About extends React.Component {
         <div>
           <h2>{movie.title}</h2>
           <p>{movie.description}</p>
-          <p>{movie.director}</p>
-          <p>{movie.rating}</p>
+          <p><label>Director: </label> {movie.director}</p>
+          <p><label>Rating: </label>{movie.rating} &#11088;</p>
           <button>
             <Link to={"/edit/" + movie.id}>Edit</Link>
           </button>
@@ -89,7 +89,7 @@ class About extends React.Component {
         <Helmet>
           <title>{movie.title}</title>
         </Helmet>
-        <div className={"aboutContainer container"}>
+        <div className={"aboutContainer container form"}>
           {redirect}
           {renderMovie}
         </div>

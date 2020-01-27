@@ -4,7 +4,7 @@ import "./App.css";
 import Main from "./components/Main.js";
 import About from "./components/About.js";
 import Nav from "./components/Nav.js";
-import AddMovie from "./components/AddNewMovie.js";
+import Add from "./components/Add.js";
 import Edit from "./components/Edit.js";
 
 class App extends React.Component {
@@ -13,11 +13,12 @@ class App extends React.Component {
       <div className="App">
         <Router>
           <header>
-            <h1>The best movies</h1>
-            <Nav />
+            <h1>The movies</h1>
+            
           </header>
+          <div className='head'><Nav /></div>
           <Route exact path="/" component={Main} />
-          <Route path="/add-movie" component={AddMovie} />
+          <Route path="/add" component={Add} />
           <Route path="/main/:id" component={About} />
           <Route path="/edit/:id" component={Edit} />
         </Router>
