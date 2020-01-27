@@ -115,7 +115,7 @@ class Main extends React.Component {
           <title>Main</title>
         </Helmet>
         <SearchForm onChange={this.onChange} search={this.state.search} />
-        <div className={"tableContainer container"}>
+        <div className={"tableContainer"}>
           {loading}
           {table}
         </div>

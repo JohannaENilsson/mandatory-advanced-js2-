@@ -54,7 +54,7 @@ class Edit extends React.Component {
   handelRedirect() {
     setTimeout(() => {
       this.setState({ redirect: 2 });
-    }, 3000);
+    }, 2500);
   }
   handleReset(e) {
     e.preventDefault();
@@ -171,7 +171,7 @@ class Edit extends React.Component {
               step="0.1"
             ></input>
 
-            <button>Add</button>
+            <button>Save update</button>
             <button onClick={this.handleReset}>Reset</button>
           </form>
         </div>

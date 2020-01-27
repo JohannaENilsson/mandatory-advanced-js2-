@@ -1,0 +1,31 @@
+
+.nav {
+  color: white;
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: larger;
+  padding: 0% 3%;
+  padding-top: 5px;
+  
+}
+
+header{
+  background-color: #D00500;
+  
+}
+header h1 {
+  margin-block-end: 8px;
+}
+.head{
+  background-color: #D00500;
+  height: 30px;
+  border-radius: 0% 0% 50% 50%;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.nav:hover{
+  color: yellow;
+}
