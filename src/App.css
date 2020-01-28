@@ -5,6 +5,10 @@ body {
   color: white;
   font-weight: lighter;
 }
+#root {
+  width: 800px;
+}
+
 
 .App {
   height: 100%;
