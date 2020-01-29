@@ -8,7 +8,6 @@ class Nav extends React.Component {
       
         <Link className='nav' to="/"> Main </Link>
         <Link className='nav' to="/add"> Add </Link>
-     
       </>
     );
   }

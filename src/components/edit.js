@@ -22,12 +22,10 @@ class Edit extends React.Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    console.log(id);
     axios
       .get("http://3.120.96.16:3001/movies/" + id)
       .then(res => {
         let data = res.data;
-        console.log(data);
 
         if (data) {
           this.setState({
@@ -103,7 +101,6 @@ class Edit extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     let editMovie;
     let redirect;
     let error;

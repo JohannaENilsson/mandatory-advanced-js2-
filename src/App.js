@@ -11,15 +11,13 @@ import Add from "./components/Add.js";
 import Edit from "./components/Edit.js";
 
 class App extends React.Component {
-  render() {
+    render() {
     return (
       <div className="App">
         <Router>
           <header>
             <h1>The movies</h1>
-            
-              <Nav />
-              
+            <Nav />
           </header>
           <div className="round"></div>
 

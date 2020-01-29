@@ -24,7 +24,6 @@ class Main extends React.Component {
 
   handleDeleteReq(e) {
     let id = e.target.id;
-    console.log(id);
     axios
       .delete("http://3.120.96.16:3001/movies/" + id)
       .then(res => {
@@ -41,8 +40,6 @@ class Main extends React.Component {
       .get("http://3.120.96.16:3001/movies")
       .then(res => {
         this.setState({ movies: res.data });
-        console.log("Server got data ", this.state.movies);
-        console.log(res.status);
       })
       .catch(err => {
         console.log("Err", err);

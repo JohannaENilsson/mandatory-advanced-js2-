@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+
 import { Helmet } from "react-helmet";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -14,7 +15,6 @@ class About extends React.Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    console.log(id);
     axios
       .get("http://3.120.96.16:3001/movies/" + id)
       .then(res => {
@@ -33,7 +33,6 @@ class About extends React.Component {
 
   handleDeleteReq(e) {
     let id = e.target.id;
-    console.log(id);
     axios
       .delete("http://3.120.96.16:3001/movies/" + id)
       .then(res => {
@@ -52,8 +51,6 @@ class About extends React.Component {
   }
 
   render() {
-    console.log("filmen ", this.state.movie);
-
     let movie = this.state.movie;
     let redirect;
     let renderMovie;
