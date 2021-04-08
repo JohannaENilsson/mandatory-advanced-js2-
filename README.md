@@ -1,4 +1,4 @@
-<h3>imdb</h3>
+<h3>IMDb</h3>
 
 Project made for my React course.
 
